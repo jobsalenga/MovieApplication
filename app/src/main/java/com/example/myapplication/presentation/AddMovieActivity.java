@@ -71,11 +71,6 @@ public class AddMovieActivity extends AppCompatActivity {
                 }
             }, mYear, mMonth, mDay);
             datePickerDialog.show();
-//                @Override
-//                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//
-//                }
-//            });
         }));
     }
 
