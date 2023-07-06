@@ -10,6 +10,37 @@ import com.google.gson.annotations.SerializedName;
 
 public class Movie implements Serializable {
 
+    public Movie(String title, String year, String rated, String released,
+                 String runtime, String genre, String director,
+                 String writer, String actors, String plot, String language,
+                 String country, String awards, String poster, String metascore,
+                 String imdbRating, String imdbVotes, String imdbID, String type, String response,
+                 List<String> images, String totalSeasons, Boolean comingSoon) {
+        this.title = title;
+        this.year = year;
+        this.rated = rated;
+        this.released = released;
+        this.runtime = runtime;
+        this.genre = genre;
+        this.director = director;
+        this.writer = writer;
+        this.actors = actors;
+        this.plot = plot;
+        this.language = language;
+        this.country = country;
+        this.awards = awards;
+        this.poster = poster;
+        this.metascore = metascore;
+        this.imdbRating = imdbRating;
+        this.imdbVotes = imdbVotes;
+        this.imdbID = imdbID;
+        this.type = type;
+        this.response = response;
+        this.images = images;
+        this.totalSeasons = totalSeasons;
+        this.comingSoon = comingSoon;
+    }
+
     @SerializedName("Title")
     @Expose
     private String title;

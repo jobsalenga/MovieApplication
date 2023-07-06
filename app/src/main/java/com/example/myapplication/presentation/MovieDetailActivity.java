@@ -22,6 +22,7 @@ import com.example.myapplication.databinding.ActivityMovieDetailsBinding;
 public class MovieDetailActivity extends AppCompatActivity {
 
     private ActivityMovieDetailsBinding activityMovieDetailsBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,20 +31,10 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         MovieLocal movie = (MovieLocal) getIntent().getSerializableExtra("movie");
         activityMovieDetailsBinding.setMovie(movie);
-        Glide.with(this)
-                .load(movie.img_backdrop)
-                .into(activityMovieDetailsBinding.imgBackDrop);
-        Glide.with(this)
-                .load(movie.poster)
-                .into(activityMovieDetailsBinding.imgPoster);
+        Glide.with(this).load(movie.img_backdrop).into(activityMovieDetailsBinding.imgBackDrop);
+        Glide.with(this).load(movie.poster).into(activityMovieDetailsBinding.imgPoster);
 
-        activityMovieDetailsBinding.imgBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(MovieDetailActivity.this, MainActivity.class));
-            }
-        });
+        activityMovieDetailsBinding.imgBackButton.setOnClickListener(v -> startActivity(new Intent(MovieDetailActivity.this, MainActivity.class)));
     }
 
 

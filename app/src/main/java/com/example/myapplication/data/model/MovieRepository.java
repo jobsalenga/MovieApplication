@@ -2,9 +2,6 @@ package com.example.myapplication.data.model;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.os.SystemClock;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
@@ -15,10 +12,8 @@ import com.example.myapplication.data.database.model.MovieLocal;
 import com.example.myapplication.data.service.APICallback;
 import com.example.myapplication.data.service.MovieApiService;
 import com.example.myapplication.data.service.RetrofitInstance;
-import com.example.myapplication.presentation.MainActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,6 +73,7 @@ public class MovieRepository {
         });
     }
 
+
     public MutableLiveData<ArrayList<MovieLocal>> getMoviesLiveData() {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             ArrayList<MovieLocal> convertedMovie = new ArrayList<>(movieLocalDao.getAll());
@@ -87,8 +83,35 @@ public class MovieRepository {
         return mutableLiveData;
     }
 
-}
 
+    public void addMovie(Movie movie, final APICallback callback) {
+
+
+        MovieApiService movieAPIService = RetrofitInstance.getService();
+
+        Call<Movie> call = movieAPIService.createPost(movie, "dGVzdDpzZWNyZXQ=");
+        call.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, Response<Movie> response) {
+                if (response.isSuccessful()) {
+                    Movie movieFromServer = (Movie) response.body();
+                            AppDatabase.databaseWriteExecutor.execute(() -> {
+                                movieLocalDao.insert(new MovieLocal(movieFromServer.getTitle(), movieFromServer.getReleased(),
+                                        movieFromServer.getImdbRating(), movieFromServer.getPlot(),
+                                        movieFromServer.getImages().get(0), movieFromServer.getImages().get(1)));
+                            });
+                    callback.onResponse(true);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
+                callback.onResponse(false);
+            }
+        });
+    }
+}
 //using retrofit database
 //    public MutableLiveData<List<Movie>> getMutableLiveData() {
 //        MovieApiService movieAPIService = RetrofitInstance.getService();

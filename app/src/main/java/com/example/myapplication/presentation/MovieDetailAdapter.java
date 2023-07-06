@@ -51,7 +51,6 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
     }
 
     static class MovieDetailHolder extends RecyclerView.ViewHolder {
-
         ItemMovieBinding itemMovieBinding;
 
         public MovieDetailHolder(@NonNull ItemMovieBinding itemMovieBinding, OnRowClick onRowClick) {
@@ -67,5 +66,8 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
                 }
             });
         }
+
+
     }
+
 }

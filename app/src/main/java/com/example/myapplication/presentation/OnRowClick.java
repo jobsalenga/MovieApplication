@@ -7,4 +7,5 @@ import com.example.myapplication.data.model.Movie;
 
 public interface OnRowClick {
     void onMovieClicked(MovieLocal movie);
+
 }

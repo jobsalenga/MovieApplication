@@ -30,14 +30,12 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public void saveMovies() {
 
-        movieRepository.saveMovies(new APICallback() {
-            @Override
-            public void onResponse(boolean success){
-                if (success){
-                    getAllMovies();
-                }
+        movieRepository.saveMovies(success -> {
+            if (success){
+                getAllMovies();
             }
         });
     }
+
 }
 
